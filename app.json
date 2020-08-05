@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hello",
-    "slug": "hello",
+    "name": "MyChat",
+    "slug": "MyChat",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,7 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.rashini.chatchat",
+      "package": "com.kasun.chatchat",
       "versionCode": 1
     }
   }
