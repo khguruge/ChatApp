@@ -1,14 +1,14 @@
 import * as firebase from 'firebase';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDplFJ5t0e-zuCHPqwTv7RvY6qhs7PlmKs",
-    authDomain: "chatchat-39cfc.firebaseapp.com",
-    databaseURL: "https://chatchat-39cfc.firebaseio.com",
-    projectId: "chatchat-39cfc",
-    storageBucket: "chatchat-39cfc.appspot.com",
-    messagingSenderId: "697847627598",
-    appId: "1:697847627598:web:60c9100c636dd532e2681f",
-    measurementId: "G-3QPB01TPVX"
+    apiKey: "AIzaSyB-zHUXpNFpJh_KnOjTuYwxYlWkxHKGUIM",
+    authDomain: "chatapp-e6500.firebaseapp.com",
+    databaseURL: "https://chatapp-e6500.firebaseio.com",
+    projectId: "chatapp-e6500",
+    storageBucket: "chatapp-e6500.appspot.com",
+    messagingSenderId: "746283397458",
+    appId: "1:746283397458:web:cad79aa37e836d95dd4a8b",
+    measurementId: "G-8NX4RJGFG9"
   };
 
 export default function firebaseInit(){
