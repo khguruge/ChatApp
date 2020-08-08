@@ -14,7 +14,7 @@ export default function useCachedResources() {
         SplashScreen.preventAutoHideAsync();
         //init firebase
         console.log('start init firebase')
-        firebaseInit()
+        await firebaseInit()
         console.log('firebase init success')
 
         // Load fonts

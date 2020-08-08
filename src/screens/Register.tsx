@@ -1,134 +1,184 @@
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Container, Content, Grid, Row, Form, Item, Input, Label, Button, Picker, Icon } from 'native-base';
-import Layout from '../constants/Layout';
-import Color from '../constants/Color';
-import * as firebase from 'firebase';
+import * as React from "react";
+import { StyleSheet } from "react-native";
+import {
+  Container,
+  Content,
+  Form,
+  Item,
+  Input,
+  Grid,
+  Row,
+  Text,
+  Button,
+  DatePicker,
+  Picker,
+  Icon,
+} from "native-base";
+import color from "../constants/Color";
+import Layout from "../constants/Layout";
+import * as firebase from "firebase";
 
-interface RegisterProps { }
+interface RegisterProps {}
 
 const Register = (props: RegisterProps) => {
-  const [FName, setFName] = React.useState('')
-  const [LName, setLName] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [phone, setPhone] = React.useState('')
-  const [pwd, setPWD] = React.useState('')
-  const [cpwd, setCPWD] = React.useState('')
-  const [gender, setGender] = React.useState('Male')
+  const [fname, setfname] = React.useState("");
+  const [lname, setlname] = React.useState("");
+  const [email, setemail] = React.useState("");
+  const [password, setpassword] = React.useState("");
+  const [cpassword, setcpassword] = React.useState("");
+  const [dob, setdob] = React.useState<Date>(new Date());
+  const [gender, setgender] = React.useState("Female");
 
-  const register=()=>{
-
-    // if(pwd!==cpwd)
-    // {
-    //   return false;
-    // }
-    firebase.auth().createUserWithEmailAndPassword(email,pwd)
-    .then(()=>{
-      const user = firebase.auth().currentUser;
-      const token = user?.uid;
-      user?.updateProfile({
-        displayName:FName+" "+LName,
-        photoURL:''
+  const register = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        const user = firebase.auth().currentUser;
+        const token = user?.uid;
+        user?.updateProfile({
+          displayName: fname + " " + lname,
+          photoURL: "",
+        });
+        const ref = firebase.database();
+        ref
+          .ref("User/" + token + "/")
+          .set({
+            fname: fname,
+            lname: lname,
+            dob: dob.toString(),
+            gender: gender,
+            email: email,
+          })
+          .catch((err) => alert(err));
       })
-      const ref = firebase.database();
-      ref.ref('User/'+token+'/').set({
-        email:email,
-        fname:FName,
-        lname:LName,
-        phone:phone,
-        gender:gender,
-      }).catch(err=>alert(err))
-    })
-    .catch(err=>{
-      console.log(err);
-      alert(err)
-    });
-  }
-
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
+  };
   return (
     <Container>
       <Content>
         <Grid>
-          <Row style={{ alignItems: 'center', justifyContent: 'center', height: Layout.height * 0.2, backgroundColor: Color.TRANSPARENT }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 25, marginTop: 30 }}>Register</Text>
-          </Row>
-          <Row style={{ height: Layout.height * 0.7, backgroundColor: Color.TRANSPARENT }}>
-            <Form style={{ flex: 1, justifyContent: "center", marginHorizontal: 20 }}>
-              <Item stackedLabel last>
-                <Label >FirstName</Label>
+          <Row
+            style={{
+              height: Layout.window.height * 0.1,
+              //backgroundColor: color.GREEN,
+            }}
+          ></Row>
+          <Row
+            style={{
+              height: Layout.window.height * 0.8,
+              // backgroundColor: color.INDIGO,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Form
+              style={{
+                // paddingHorizontal: 30,
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
+              }}
+            >
+              <Item rounded style={styles.inputbox}>
                 <Input
-                  onChangeText={txt => { setFName(txt) }}
-                  value={FName}
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  selectionColor="#fff"
+                  placeholderTextColor="#000000"
+                  placeholder="First Name"
+                  onChangeText={(txt) => {
+                    setfname(txt);
+                  }}
+                  value={fname}
                 />
               </Item>
-              <Item stackedLabel last>
-                <Label >LastName</Label>
+              <Item rounded style={styles.inputbox}>
                 <Input
-                  onChangeText={txt => setLName(txt)}
-                  value={LName}
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  selectionColor="#fff"
+                  placeholderTextColor="#000000"
+                  placeholder="Last Name"
+                  onChangeText={(txt) => setlname(txt)}
+                  value={lname}
                 />
               </Item>
-              <Item stackedLabel last>
-                <Label > Email</Label>
+              <Item rounded style={styles.inputbox}>
                 <Input
-                  onChangeText={txt => setEmail(txt)}
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  selectionColor="#fff"
+                  placeholderTextColor="#000000"
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  onChangeText={(txt) => setemail(txt)}
                   value={email}
                 />
               </Item>
-              <Item stackedLabel last>
-                <Label > PhoneNumber</Label>
+
+              <Item rounded style={styles.inputbox}>
                 <Input
-                  onChangeText={txt => setPhone(txt)}
-                  value={phone}
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  selectionColor="#fff"
+                  placeholderTextColor="#000000"
+                  placeholder="Password"
+                  secureTextEntry={true}
+                  onChangeText={(txt) => setpassword(txt)}
+                  value={password}
                 />
               </Item>
-              <Item picker style={{ marginVertical: 10 }}>
+              <Item rounded style={styles.inputbox}>
+                <Input
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  selectionColor="#fff"
+                  placeholderTextColor="#000000"
+                  placeholder="Confirm Password"
+                  secureTextEntry={true}
+                  onChangeText={(txt) => setcpassword(txt)}
+                  value={cpassword}
+                />
+              </Item>
+              <Item style={styles.inputbox} rounded>
+                <Text>Date of birth</Text>
+                <DatePicker
+                  defaultDate={new Date(dob)}
+                  minimumDate={new Date(1980, 1, 1)}
+                  maximumDate={new Date()}
+                  locale={"en"}
+                  modalTransparent={false}
+                  animationType={"fade"}
+                  placeHolderText="Select date"
+                  textStyle={{ color: "green" }}
+                  placeHolderTextStyle={{ color: "#d3d3d3" }}
+                  disabled={false}
+                  onDateChange={(txt) => setdob(new Date(txt))}
+                />
+              </Item>
+              <Item rounded style={styles.inputbox}>
                 <Picker
                   mode="dropdown"
                   iosIcon={<Icon name="arrow-down" />}
-                  style={{ width: undefined }}
-                  placeholder="Select your Gender"
-                  placeholderStyle={{ color: "#bfc6ea" }}
-                  placeholderIconColor="#007aff"
+                  headerStyle={{ backgroundColor: "#b95dd3" }}
+                  headerBackButtonTextStyle={{ color: "#fff" }}
+                  headerTitleStyle={{ color: "#fff" }}
                   selectedValue={gender}
-                  onValueChange={(value) => setGender(value)}
+                  onValueChange={(value) => setgender(value)}
                 >
                   <Picker.Item label="Male" value="Male" />
                   <Picker.Item label="Female" value="Female" />
                 </Picker>
-
               </Item>
-              <Item stackedLabel last>
-                <Label >Password</Label>
-                <Input multiline={false} secureTextEntry={true}
-                  onChangeText={txt => setPWD(txt)}
-                  value={pwd}
-                />
-              </Item>
-              <Item stackedLabel last>
-                <Label >Confirm Password</Label>
-                <Input secureTextEntry
-                  onChangeText={txt => setCPWD(txt)}
-                  value={cpwd}
-                />
-              </Item>
-
-
-
             </Form>
           </Row>
-
-          <Row style={{ height: Layout.height * 0.1, backgroundColor: Color.TRANSPARENT }} >
-            <Button style={{ flex: 1, marginHorizontal: 75, borderRadius: 20, justifyContent: "center" }}
-              onPress={()=>register()}
-            >
-              <Text style={{ color: Color.WHITE }}>Register</Text>
+          <Row>
+            <Button primary style={styles.button} onPress={() => register()}>
+              <Text style={styles.buttonText}> Sign Up </Text>
             </Button>
           </Row>
         </Grid>
       </Content>
     </Container>
-
   );
 };
 
@@ -137,7 +187,33 @@ export default Register;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inputbox: {
+    width: 375,
+    height: 50,
+    backgroundColor: color.TRANSPARENT,
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  button: {
+    backgroundColor: "#808080",
+    width: 100,
+    // height: 50,
+    borderRadius: 25,
+    // marginVertical: 10,
+    // paddingVertical: 16,
+    justifyContent: "center",
+    marginHorizontal: 150,
+    alignContent: "center",
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: color.WHITE,
+    textAlign: "center",
+  },
 });

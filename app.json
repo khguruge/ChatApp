@@ -23,7 +23,7 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.kasun.chatchat",
+      "package": "com.kasun.MyChat",
       "versionCode": 1
     }
   }

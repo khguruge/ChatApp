@@ -2,11 +2,10 @@ import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabThreeParamList } from '../types';
+import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 import { ChatList, ChatView, AddChat } from '../screens/Chat';
 import Profile from '../screens/Profile';
 import Color from '../constants/Color';
-import NewFriends from '../screens/NewFriends';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -15,18 +14,13 @@ export default function BottomTabNavigator(){
         <BottomTab.Navigator
          tabBarOptions={{activeTintColor:Color.tintColorLight}}>
             <BottomTab.Screen
-             name='TabOne' 
+             name='Messages' 
              component={TabOne}
              options={{tabBarIcon:({color})=><TabBarIcon name='ios-chatbubbles' color={color}/>}}
              />
             <BottomTab.Screen
-             name='TabTwo' 
+             name='Profile' 
              component={TabTwo}
-             options={{tabBarIcon:({color})=><TabBarIcon name='ios-person' color={color}/>}}
-             />
-             <BottomTab.Screen
-             name='TabThree' 
-             component={TabThree}
              options={{tabBarIcon:({color})=><TabBarIcon name='ios-person' color={color}/>}}
              />
         </BottomTab.Navigator>
@@ -73,13 +67,5 @@ function TabTwo(){
         <TabTwoStack.Navigator>
             <TabTwoStack.Screen name='Profile' component={Profile}/>
         </TabTwoStack.Navigator>
-    );
-}
-const TabThreeStack = createStackNavigator<TabThreeParamList>();
-function TabThree(){
-    return(
-        <TabThreeStack.Navigator>
-            <TabThreeStack.Screen name='NewFriends' component={NewFriends}/>
-        </TabThreeStack.Navigator>
     );
 }

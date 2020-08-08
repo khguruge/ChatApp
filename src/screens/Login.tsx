@@ -1,85 +1,177 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthParamList } from '../types';
-import { Container, Content, Grid, Row, Form, Item, Input,Label,Button } from 'native-base';
-import Layout from '../constants/Layout';
-import Color from '../constants/Color';
-import * as firebase from 'firebase';
+import * as React from "react";
+import { View, StyleSheet, Image } from "react-native";
+import {
+  Container,
+  Header,
+  Content,
+  Form,
+  Item,
+  Input,
+  Grid,
+  Row,
+  Text,
+  Button,
+} from "native-base";
+import { RouteProp } from "@react-navigation/native";
+import { AuthParamList } from "../types";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import color from "../constants/Color";
+import * as firebase from "firebase";
 
-type LoginRouteProps = RouteProp<AuthParamList, 'Login'>
-type LoginNavigationProps = StackNavigationProp<AuthParamList, 'Login'>;
+type LoginRouteProps = RouteProp<AuthParamList, "Login">;
+type LoginNavigationProps = StackNavigationProp<AuthParamList, "Login">;
+type props = {
+  route: LoginRouteProps;
+  navigation: LoginNavigationProps;
+};
 
-type prop = {
-    route: LoginRouteProps,
-    navigation: LoginNavigationProps
-}
-
-const Login = ({ route, navigation }: prop) => {
-    const [email,setEmail] = React.useState('')
-    const [pwd,setPWD] = React.useState('')
-
-    const login=()=>{
-        firebase.auth().signInWithEmailAndPassword(email,pwd)
-        .catch(err=>alert(err))
-    }
-    return (
-        <Container>
-            <Content>
-                <Grid>
-                    <Row style={{ alignItems: 'center', justifyContent: 'center', height: Layout.height * 0.3, backgroundColor: Color.TRANSPARENT }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 25, marginTop: 30 }}>Login</Text>
-                    </Row>
-                    <Row style={{ height: Layout.height * 0.4, backgroundColor: Color.TRANSPARENT }}>
-                        <Form style={{flex:1,justifyContent:"center", marginHorizontal:20}}>
-                         
-                         <Item stackedLabel last>
-                            <Label >Email</Label>
-                            <Input
-                                onChangeText={txt=>setEmail(txt)}
-                                value={email}
-                            />
-                         </Item>
-                         <Item stackedLabel last>
-                             <Label >Password</Label>
-                             <Input
-                                onChangeText={txt=>setPWD(txt)}
-                                value={pwd}
-                             />
-                         </Item>
-                        </Form>
-                        </Row>
-                        <Row style={{ height: Layout.height * 0.2, backgroundColor: Color.TRANSPARENT }}>
-                        <Button style={{flex:1,marginHorizontal:75,borderRadius:20,justifyContent:"center"}}
-                            onPress={()=>login()}
-                        >
-                            <Text style={{color:Color.WHITE}}>Login</Text>
-
-                        </Button>
-                    </Row>
-                    <Row style={{flex:1,justifyContent:'center', backgroundColor: Color.TRANSPARENT }}>
-                        <Text>Haven't Registered Yet? </Text>
-                         <Item onPress={()=>navigation.push('Register')}>
-                             <Text style={{color:Color.tintColorLight}}>SignUp</Text>
-                         </Item>
-                    </Row>
-                </Grid>
-            </Content>
-        </Container>
-    );
-}
+const Login = ({ route, navigation }: props) => {
+  const [email, setEmail] = React.useState("");
+  const [pwd, setPWD] = React.useState("");
+  const login = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, pwd)
+      .catch((err) => alert(err));
+  };
+  return (
+    <Container>
+      <Content>
+        <Grid>
+          <Row
+            style={{
+              height: 200,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View>
+              <Image
+                style={styles.icon}
+                resizeMode="cover"
+                source={require("../../assets/icon.png")}
+              />
+            </View>
+            {/* <Text style={styles.LogoText}>MyChat</Text> */}
+          </Row>
+          <Row
+            style={{
+              height: 200,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Form
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Item>
+                <Input
+                  style={styles.inputbox}
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  placeholder="Email"
+                  selectionColor="#fff"
+                  keyboardType="email-address"
+                  placeholderTextColor="#000000"
+                  onChangeText={(txt) => setEmail(txt)}
+                  value={email}
+                />
+              </Item>
+              <Item>
+                <Input
+                  style={styles.inputbox}
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  secureTextEntry={true}
+                  placeholder="Password"
+                  placeholderTextColor="#000000"
+                  onChangeText={(txt) => setPWD(txt)}
+                  value={pwd}
+                />
+              </Item>
+            </Form>
+          </Row>
+          <Row
+            style={{
+              height: 50,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button primary style={styles.button} onPress={() => login()}>
+              <Text style={styles.buttonText}> Sign In </Text>
+            </Button>
+          </Row>
+          <Row
+            style={{
+              height: 100,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text>Don't you have an account</Text>
+            <Item
+              underline={false}
+              bordered={false}
+              onPress={() => navigation.push("Register")}
+            >
+              <Text style={{ color: color.GRAY }}> Register now...</Text>
+            </Item>
+          </Row>
+        </Grid>
+      </Content>
+    </Container>
+  );
+};
 
 export default Login;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    text: {
-        fontSize: 15,
-        fontWeight: 'bold'
-    }
-})
+  container: {
+    flex: 1,
+    backgroundColor: color.WHITE,
+    alignContent: "center",
+    justifyContent: "center",
+    paddingVertical: 40,
+  },
+  inputbox: {
+    width: 375,
+    height: 50,
+    backgroundColor: color.TRANSPARENT,
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: color.WHITE,
+    textAlign: "center",
+  },
+  button: {
+    backgroundColor: "#808080",
+    width: 100,
+    // height: 50,
+    borderRadius: 25,
+    // marginVertical: 10,
+    // paddingVertical: 16,
+    justifyContent: "center",
+    marginHorizontal: 150,
+    alignContent: "center",
+  },
+  LogoText: {
+    fontSize: 40,
+    fontWeight: "bold",
+    color: color.BLACK,
+    textAlign: "center",
+  },
+  icon: {
+    alignSelf:"center",
+    width:150,
+    height:150,
+  },
+});
