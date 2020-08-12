@@ -23,13 +23,13 @@ import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import { ImageBackground, StyleSheet, View } from "react-native";
 import * as firebase from "firebase";
-import { AuthParamList, TabTwoParamList, User } from "../types";
+import { AuthParamList, TabThreeParamList, User } from "../types";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import Loading from "./Loading";
 
-type ProfileRouteProps = RouteProp<TabTwoParamList, "Profile">;
-type ProfileNavigationProps = StackNavigationProp<TabTwoParamList, "Profile">;
+type ProfileRouteProps = RouteProp<TabThreeParamList, "Profile">;
+type ProfileNavigationProps = StackNavigationProp<TabThreeParamList, "Profile">;
 
 type Props = {
   route: ProfileRouteProps;

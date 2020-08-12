@@ -2,12 +2,12 @@ import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { GiftedChat, Message, IMessage } from "react-native-gifted-chat";
 import { RouteProp } from "@react-navigation/native";
-import { TabOneParamList, Chat } from "../../types";
+import { TabTwoParamList, Chat } from "../../types";
 import { StackNavigationProp } from "@react-navigation/stack";
 import * as firebase from "firebase";
 
-type ChatViewRouteProps = RouteProp<TabOneParamList, "ChatView">;
-type ChatViewNavigationProps = StackNavigationProp<TabOneParamList, "ChatView">;
+type ChatViewRouteProps = RouteProp<TabTwoParamList, "ChatView">;
+type ChatViewNavigationProps = StackNavigationProp<TabTwoParamList, "ChatView">;
 
 type Props = {
   route: ChatViewRouteProps;

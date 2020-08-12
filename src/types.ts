@@ -5,18 +5,22 @@ export type AuthParamList = {
 export type BottomTabParamList = {
   Messages: undefined;
   Profile: undefined;
+  Home: undefined;
 };
+
 export type TabOneParamList = {
+  Home: undefined;
+};
+
+export type TabTwoParamList = {
   ChatList: undefined;
   ChatView: { chatId?: string | null; title: string };
   AddChat: undefined;
 };
-export type TabTwoParamList = {
+export type TabThreeParamList = {
   Profile: undefined;
 };
-// export type TabThreeParamList = {
-//   NewFriends: undefined;
-// };
+
 
 export type User = {
   uid?: string;

@@ -23,13 +23,13 @@ import {
 import { FloatingAction } from "react-native-floating-action";
 import Color from "../../constants/Color";
 import { RouteProp } from "@react-navigation/native";
-import { TabOneParamList, Chat, User } from "../../types";
+import { TabTwoParamList, Chat, User } from "../../types";
 import { StackNavigationProp } from "@react-navigation/stack";
 import * as firebase from "firebase";
 import Loading from "../Loading";
 
-type ChatListRouteProps = RouteProp<TabOneParamList, "ChatList">;
-type ChatListNavigationProps = StackNavigationProp<TabOneParamList, "ChatList">;
+type ChatListRouteProps = RouteProp<TabTwoParamList, "ChatList">;
+type ChatListNavigationProps = StackNavigationProp<TabTwoParamList, "ChatList">;
 
 type Props = {
   route: ChatListRouteProps;
